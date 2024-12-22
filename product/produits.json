@@ -1,24 +1,20 @@
 [
     {
-        "nom": "Céréales Choco Boule",
+        "nom": "Test du jour 5",
         "reference": "CHB001",
-        "prix": 4.99,
+        "prix": 4,
         "description": "Délicieuses boules au chocolat.",
-        "meta_description": "",
-        "meta_keywords": "",
-        "meta_title": "",
-        "link_rewrite": "",
         "id_categories": [9],
-        "attributs": {"taille": 1},
+        "attributs": {"taille": [1,2,3]},
         "caracteristiques": {"formes": [7, 8], "gouts": [22, 23]}
     },
     {
-        "nom": "Céréales Miel Cube",
+        "nom": "Second test 5",
         "reference": "MC002",
-        "prix": 5.49,
+        "prix": 5,
         "description": "Cubes au miel, parfaits pour le petit-déjeuner.",
         "id_categories": [10],
-        "attributs": {"taille": 2},
+        "attributs": {"taille": [1,2,3]},
         "caracteristiques": {"formes": [10], "gouts": [25, 26]}
     }
 ]

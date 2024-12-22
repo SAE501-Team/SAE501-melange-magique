@@ -16,9 +16,9 @@ def generer_reference(categorie, produit_nom):
     return reference
 
 # Exemple d'utilisation
-categorie = "Céréales"
-produit_nom = "Cornflakes"
+#categorie = "Céréales"
+#produit_nom = "Cornflakes"
 
 # Générer une référence pour le produit
-reference = generer_reference(categorie, produit_nom)
-print(f"Référence générée pour {produit_nom} : {reference}")
+#reference = generer_reference(categorie, produit_nom)
+#print(f"Référence générée pour {produit_nom} : {reference}")

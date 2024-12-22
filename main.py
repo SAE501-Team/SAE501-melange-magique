@@ -5,12 +5,11 @@ def main():
     number_of_products = int(input("Combien de produits voulez-vous générer ? "))
 
     # Appeler la fonction pour générer la liste de produits
-    products = generate_products(number_of_products)
+    generate_products(number_of_products)
 
-    # Afficher la liste de produits
-    for product in products:
-        print(product)
+    print("Programme terminer.")
 
 if __name__ == "__main__":
     main()
 
+#pip install -r requirements.txt

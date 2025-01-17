@@ -16,15 +16,7 @@ flask
 requests
 
 # Traitement XML
-xmltodict  # Alternative utile à xml.etree.ElementTree si vous souhaitez plus de flexibilité
-
-# Bibliothèques standards utilisées
-datetime  # Inclus dans Python
-threading  # Inclus dans Python
-
-# Gestion des verrous (si nécessaire)
-flask-limiter  # Pour limiter les appels API et gérer la sécurité
-
+#xml.etree.ElementTree
 # Pour assurer la génération de références, prompts, et images
 # Ajoutez les dépendances des fichiers de modules si elles ne sont pas incluses ici.
 

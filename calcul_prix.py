@@ -1,8 +1,6 @@
 from donnee_cereales import formes_cereales, gouts_cereales, categorie_cereales
 
-def calcul_prix(caracteristique, categories):
-
-    prix_total = 0.0
+def calcul_prix(caracteristique, categories, prix_total=0.0):
 
     # Calculer le prix pour les formes
     for forme_id in caracteristique.get("formes", []):

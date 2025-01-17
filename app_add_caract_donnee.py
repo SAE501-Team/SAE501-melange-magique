@@ -3,7 +3,7 @@ import ast
 
 # Fonction pour ajouter une nouvelle forme ou un nouveau goût
 def ajouter_element(type_element, id_element, nom, nom_anglais, prix, description):
-    file_path = "/Volumes/My Passport/generated_send_user_BEHH/donnee_cereales_test.py"
+    file_path = "/Volumes/My Passport/melange_magique/donnee_cereales_test.py"
 
     # Lire tout le contenu du fichier source
     with open(file_path, "r", encoding="utf-8") as file:
@@ -60,7 +60,7 @@ def ajouter_element(type_element, id_element, nom, nom_anglais, prix, descriptio
     print(f"La section '{type_element}' a été mise à jour avec succès.")
 
 # Exemple d'utilisation pour ajouter une forme
-ajouter_element(
+'''ajouter_element(
     "formes_cereales",
     19,
     "test",
@@ -77,4 +77,4 @@ ajouter_element(
     "new flavor",
     0.25,
     "A brand new flavor for testing."
-)
+)'''

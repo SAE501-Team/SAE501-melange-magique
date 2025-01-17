@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link
+    href="https://fonts.googleapis.com/css2?family=ADLaM+Display&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <title>Formulaire Esthétique</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      width: 90%;
+      margin: auto auto;
+      background-color: white;
+      padding: 30px;
+    }
+    h1 {
+      text-align: center;
+      color: #000000;
+      font-family: 'Adlam Display', sans-serif;
+    }
+    .form-group {
+      display: flex;
+      gap: 6px;
+      flex-direction: row;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    label {
+      font-size: 1.1em;
+      color: #000000;
+      font-family: 'Adlam Display', sans-serif;
+    }
+
+    input[type="text"], .choices__inner{
+      color: #000000;
+      border: #000000 2px solid !important;
+      background-color: #ffffff !important;
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+    }
+    select, input[type="color"], button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      background-color: #7BAAF7;
+      border:none;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease-out;
+    }
+    button:hover {
+      background-color: #9dc0f7;
+    }
+
+    button[type="submit"] {
+      background-color: #FF4081;
+    }
+    button[type="submit"]:hover {
+      background-color: #ff689a;
+    }
+
+    .choices__button {
+      color: white;
+      cursor: pointer;
+      transition: transform 0.25s ease-out;
+    }
+    .choices__button:hover {
+      transform: scale(1.4);
+    }
+    .disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    .color-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 10px;
+    }
+
+    .color-selector input[type="radio"] {
+      display: none; /* Cache le bouton radio natif */
+    }
+
+    .color-label {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: inline-block;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: transform 0.2s ease, border-color 0.3s ease;
+    }
+
+    .color-label:hover {
+      transform: scale(1.1); /* Animation au survol */
+    }
+
+    .color-selector input[type="radio"]:checked + .color-label {
+      border-color: #333; /* Affiche une bordure sombre pour la couleur sélectionnée */
+      transform: scale(1.2); /* Légèrement plus grand pour indiquer la sélection */
+    }
+
+    .color-label[data-color="white"] {
+      border-color: #ccc; /* Bordure grise pour la couleur blanche */
+    }
+  
+    .error-message, .error-messages {
+      color: red;
+      font-size: 0.9em;
+      margin-top: 5px;
+    }
+
+    .choices__inner{
+      padding: 7.5px 7.5px 7.5px;
+      height: 36px;
+      min-height: 36px;
+      width: 98% !important;
+    }
+
+    .choices__inner .choices__item--selectable{
+      background: linear-gradient(to top left, #FF4081, #7BAAF7) !important;
+      border: none !important;
+      border-radius: 10px !important;
+      padding: 0px 10px;
+      font-family: 'Adlam Display', sans-serif;
+    }
+
+    .choices__inner .choices__item--selectable .choices__button:hover {
+        background-color: #4c596f00;
+    }
+
+    .choices__inner .choices__item--selectable .choices__button{
+      border-left:none !important;
+      margin: 0 -4px 0 0px !important;
+      opacity: 1 !important;
+    }
+  
+    .choices{
+      width: 97%;
+      margin-bottom: 0px !important;
+      overflow: visible !important;
+    }
+
+    .ajout{
+      display: flex;
+      width: 100%;
+    }
+
+    .ajout input[type="text"]{
+      margin-right: 10px;
+    }
+
+    @media screen and (min-width: 1005px) {
+      .colopose{
+        flex-direction: column;
+      }
+    }
+
+    @media screen and (min-width: 824px) {
+      .choices__inner{
+        width: 101% !important;
+      }
+    }
+
+    /* From Uiverse.io by Lu2ovic */ 
+    .radio-input {
+      display: flex;
+      gap: 16px; /* Espace entre les lignes */
+      margin-left: 4%;
+    }
+
+    .radio-b {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .radio-b__input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .radio-b__label {
+      display: flex;
+      align-items: center;
+      gap: 12px; /* Espace entre le carré et le texte */
+      font-size: 15px;
+      color: #000000;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .radio-b__custom {
+      position: relative;
+      width: 26px;
+      height: 26px;
+      border: 2px solid #000000;
+      border-radius: 0%;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+
+    .radio-b__custom-fill {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 10px;
+      background: linear-gradient(
+        0deg,
+        rgba(0, 230, 118, 1) 0%,
+        rgba(255, 215, 0, 1) 100%
+      );
+      transform: translate(-50%, -50%);
+      transition: all 0.3s ease;
+    }
+
+    .radio-b__input:checked + .radio-b__label .radio-b__custom-fill {
+      width: 26px;
+      height: 26px;
+      transition: all 0.3s ease;
+    }
+
+    .radio-b__input:checked + .radio-b__label .radio-b__custom {
+      border: none; /* Supprime les bordures noires */
+      transition: all 0.3s ease; /* Assure une transition fluide */
+    }
+
+    .radio-b__input:hover + .radio-b__label .radio-b__custom {
+      transform: scale(0.85);
+      color: linear-gradient(
+        0deg,
+        rgba(0, 230, 118, 1) 0%,
+        rgba(255, 215, 0, 1) 100%
+      );
+    }
+
+    /* Optionnel : style pour le texte */
+    .radio-b__text {
+      font-size: 15px;
+      color: #000000;
+      font-weight: 600;
+    }
+
+
+    #loading-animation {
+      transition: opacity 0.5s ease;
+      width: 80%;
+      height: 50vh;
+      opacity: 0;
+      position: fixed;
+      top: 120px;
+      left: 10%;
+      z-index: -1;
+      align-items: center;
+    }
+    #loading-animation p{
+      text-align: center;
+      border-bottom: solid 3px #FFD700;
+      margin: 6px 79px;
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Créez vos céréales sur mesure</h1>
+
+    {% if erreurs %}
+      <div class="error-messages">
+          {% for erreur in erreurs %}
+            <p class="error-messages">{{ erreur }}</p>
+          {% endfor %}
+      </div>
+    {% endif %}
+
+    <form id="myForm" action="/" method="POST">
+      <!-- Goûts -->
+      <div class="form-group">
+        <label for="gouts">Sélectionnez vos goûts (max 3) :</label>
+        <select id="gouts" name="gouts" multiple>
+          {% for gout_id, gout in gouts.items() %}
+            <option value="{{ gout_id }}" {% if gout_id|string in selected_gouts %}selected{% endif %}>
+              {{ gout['nom'] }}
+            </option>
+          {% endfor %}
+          {% for selected_gout in selected_gouts %}
+            {% if selected_gout not in gouts %}
+                <option value="{{ selected_gout }}" selected>{{ selected_gout }}</option>
+            {% endif %}
+          {% endfor %}
+        </select>
+        <div class="ajout">
+          <input type="text" id="newGout" placeholder="Ajouter un nouveau goût" />
+          <button type="button" id="addGout">Ajouter ce goût</button>
+        </div>
+        <p class="error-message" id="goutError"></p>
+      </div>
+
+      <!-- Formes -->
+      <div class="form-group">
+        <label for="formes">Sélectionnez vos formes (max 3) :</label>
+        <select id="formes" name="formes" multiple>
+          {% for forme_id, forme in formes.items() %}
+            <option value="{{ forme_id }}" {% if forme_id|string in selected_formes %}selected{% endif %}>
+              {{ forme['nom'] }}
+            </option>
+          {% endfor %}
+          {% for selected_forme in selected_formes %}
+              {% if selected_forme not in formes %}
+                  <option value="{{ selected_forme }}" selected>{{ selected_forme }}</option>
+              {% endif %}
+          {% endfor %}
+        </select>
+        <div class="ajout">
+          <input type="text" id="newForme" placeholder="Ajouter une nouvelle forme" />
+          <button type="button" id="addForme">Ajouter cette forme</button>
+        </div>
+        <p class="error-message" id="formeError"></p>
+      </div>
+
+      <!-- Catégorie -->
+      <div class="form-group">
+        <label for="categorie">Choisissez une catégorie :</label>
+        <!-- <div>
+          <label><input type="radio" name="categorie" value="10" {% if categorie == "10" %}checked{% endif %} required> Bio</label>
+          <label><input type="radio" name="categorie" value="5" {% if categorie == "5" %}checked{% endif %} required> Sport</label>
+          <label><input type="radio" name="categorie" value="4" {% if categorie == "4" %}checked{% endif %} required> Gourmand</label>
+        </div> -->
+        <div class="radio-input">
+          <div class="radio-b">
+            <input type="radio" class="radio-b__input" id="radio1" name="categorie" value="10" {% if categorie == "10" %}checked{% endif %} required/>
+            <label class="radio-b__label" for="radio1">
+              <div class="radio-b__custom">
+                <span class="radio-b__custom-fill"></span>
+              </div>
+              <span class="radio-b__text">Bio</span>
+            </label>
+          </div>
+          <div class="radio-b">
+            <input type="radio" class="radio-b__input" id="radio2" name="categorie" value="5" {% if categorie == "5" %}checked{% endif %} required/>
+            <label class="radio-b__label" for="radio2">
+              <div class="radio-b__custom">
+                <span class="radio-b__custom-fill"></span>
+              </div>
+              <span class="radio-b__text">Sport</span>
+            </label>
+          </div>
+          <div class="radio-b">
+            <input type="radio" class="radio-b__input" id="radio3" name="categorie" value="4" {% if categorie == "4" %}checked{% endif %} required/>
+            <label class="radio-b__label" for="radio3">
+              <div class="radio-b__custom">
+                <span class="radio-b__custom-fill"></span>
+              </div>
+              <span class="radio-b__text">Gourmand</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Titre -->
+      <div class="form-group">
+        <label for="titre">Nom de vos céréales :</label>
+        <input type="text" id="titre" name="titre" value="{{ titre }}" required />
+      </div>
+
+      <!-- Couleur -->
+      <div class="form-group colopose">
+        <label for="couleur">Choisir la couleur de la boite :</label>
+        <div id="palette" class="color-selector">
+          {% set couleurs_disponibles = [
+            ('red', 'Red'), 
+            ('blue', 'Blue'), 
+            ('green', 'Green'), 
+            ('yellow', 'Yellow'), 
+            ('orange', 'Orange'), 
+            ('purple', 'Purple'), 
+            ('pink', 'Pink'), 
+            ('brown', 'Brown'), 
+            ('gray', 'Gray'), 
+            ('black', 'Black'), 
+            ('white', 'White')
+          ] %}
+          
+          {% for code, nom in couleurs_disponibles %}
+          <input 
+            type="radio" 
+            id="{{ code }}" 
+            name="couleur" 
+            value="{{ code }}" 
+            {% if couleur == code %}checked{% endif %}>
+          <label 
+            for="{{ code }}" 
+            class="color-label" 
+            data-color="{{ code }}" 
+            style="background-color: {{ code }};"
+            title="{{ nom }}">
+          </label>
+          {% endfor %}
+        </div>
+      </div>
+      <!-- Bouton -->
+      <button type="submit">Créer votre Mélange Magique</button>
+    </form>
+    <div id="loading-animation" style="opacity: 0;">
+      <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.3.0/dist/dotlottie-wc.js" type="module"></script>
+      <!-- Animation Lottie -->
+      <dotlottie-wc src="https://lottie.host/5a1b67cd-d89f-4b83-bade-5c216daa41f2/5Qog2el6Y4.lottie" autoplay loop></dotlottie-wc>
+      <p>Votre packet de céréales est en cours de création !</p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const goutsChoices = new Choices('#gouts', { removeItemButton: true, maxItemCount: 3 });
+      const formesChoices = new Choices('#formes', { removeItemButton: true, maxItemCount: 3 });
+
+      const form = document.querySelector("form"); // Sélectionne votre formulaire
+      const loadingAnimation = document.getElementById("loading-animation");
+
+      form.addEventListener("submit", function (e) {
+          // Afficher l'animation de chargement
+          loadingAnimation.style.zIndex = "0";
+          loadingAnimation.style.opacity = "1";
+
+          // Masquer le formulaire pour éviter des soumissions multiples
+          form.style.display = "none";
+      });
+
+      // Fonction pour ajouter dynamiquement un nouvel élément
+      function handleAdd(buttonId, inputId, choices, errorId) {
+        document.getElementById(buttonId).addEventListener('click', () => {
+          const newValue = document.getElementById(inputId).value.trim();
+          if (newValue && choices.getValue(true).length < 3) {
+            choices.setChoiceByValue(newValue); 
+            choices.setValue([{ value: newValue, label: newValue, selected: true }]);
+            document.getElementById(inputId).value = ''; 
+          }
+          updateFieldState(choices, document.getElementById(inputId), document.getElementById(buttonId), document.getElementById(errorId));
+        });
+      }
+
+      // Fonction pour synchroniser les choix avant soumission
+      function syncChoicesToSelect(choices, selectId) {
+        const selectElement = document.getElementById(selectId);
+        const values = choices.getValue(true);
+        selectElement.innerHTML = ''; 
+        values.forEach(value => {
+          const option = document.createElement('option');
+          option.value = value;
+          option.textContent = value;
+          option.selected = true;
+          selectElement.appendChild(option);
+        });
+      }
+
+      // Fonction pour bloquer les champs si max atteint
+      function updateFieldState(choices, inputField, button, errorField) {
+        if (choices.getValue(true).length >= 3) {
+          inputField.disabled = true;
+          button.disabled = true;
+          button.classList.add('disabled');
+          errorField.textContent = 'Vous avez déjà sélectionné 3 éléments.';
+        } else {
+          inputField.disabled = false;
+          button.disabled = false;
+          button.classList.remove('disabled');
+          errorField.textContent = '';
+        }
+      }
+
+      // Vérification avant soumission du formulaire
+      document.getElementById('myForm').addEventListener('submit', function (event) {
+        const goutsSelect = document.getElementById('gouts');
+        const formesSelect = document.getElementById('formes');
+        let formIsValid = true;
+
+        // Vérifier si les goûts ont des éléments sélectionnés
+        if (goutsSelect.selectedOptions.length === 0) {
+          document.getElementById('goutError').textContent = "Veuillez sélectionner au moins un goût.";
+          formIsValid = false;
+        } else {
+          document.getElementById('goutError').textContent = "";
+        }
+
+        // Vérifier si les formes ont des éléments sélectionnés
+        if (formesSelect.selectedOptions.length === 0) {
+          document.getElementById('formeError').textContent = "Veuillez sélectionner au moins une forme.";
+          formIsValid = false;
+        } else {
+          document.getElementById('formeError').textContent = "";
+        }
+
+        // Si le formulaire n'est pas valide, empêcher la soumission
+        if (!formIsValid) {
+          event.preventDefault();
+        }
+
+        // Synchroniser les choix avant la soumission du formulaire
+        syncChoicesToSelect(goutsChoices, 'gouts');
+        syncChoicesToSelect(formesChoices, 'formes');
+      });
+
+      handleAdd('addGout', 'newGout', goutsChoices, 'goutError');
+      handleAdd('addForme', 'newForme', formesChoices, 'formeError');
+    });
+  </script>
+</body>
+</html>

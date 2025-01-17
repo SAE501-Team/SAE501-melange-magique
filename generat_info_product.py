@@ -161,7 +161,7 @@ def generate_products(n):
             )
 
             # Ajouter le produit et afficher un message
-            ajouter_produit(product, "/Volumes/My Passport/generated_send_user_BEHH/product/imgProduit")
+            ajouter_produit(product, "/Volumes/My Passport/melange_magique/product/imgProduit")
             print(f"Produit numéro {i + 1}/{n} ajouté au site BEHH")
 
             # Incrémenter les compteurs

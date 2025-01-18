@@ -147,4 +147,4 @@ categorie_cereales = {
     4: {"nom": "gourmand", "prix": 0.54, "description": "Rich, appetizing design with warm, inviting tones, perfect for indulgence."}
 }
 
-test
+test2

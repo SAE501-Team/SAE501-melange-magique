@@ -1,8 +1,12 @@
 import sys
 import os
 
-# Rediriger la sortie standard (print) vers le fichier de log d'Apache
-sys.stdout = sys.stderr
+# Chemin vers le fichier de log de l'application
+log_path = '/var/www/melange_magique/melange_magique_app.log'
+
+# Rediriger stdout et stderr vers un fichier de log
+sys.stdout = open(log_path, 'a')  # Mode append pour conserver l'historique
+sys.stderr = sys.stdout  # Les erreurs vont aussi dans ce fichier
 
 # Chemin vers l'environnement virtuel
 venv_path = '/var/www/melange_magique/mistral_env'

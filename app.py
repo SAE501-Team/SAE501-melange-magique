@@ -36,8 +36,9 @@ def verifier_si_existe(valeur, type_choix, seuil_similarite=80):
     :param seuil_similarite: pourcentage minimal de similarité pour considérer une correspondance
     :return: l'ID correspondant ou None si la valeur n'existe pas
     """
+    print(f"Valeur avant nettoyage : {valeur} (type : {type(valeur)})")
     valeur_nettoyee = nettoyer_valeur(valeur)
-    
+    print("après netoyage")
     def correspondance_proche(nom_donnee):
         # Nettoie également le nom dans les données pour une comparaison plus précise
         nom_nettoye = nettoyer_valeur(nom_donnee)
@@ -53,7 +54,7 @@ def verifier_si_existe(valeur, type_choix, seuil_similarite=80):
         for id_gout, gout in donnee_cereales_test.gouts_cereales.items():
             if correspondance_proche(gout['nom']):
                 return id_gout
-
+    print("j'ai verif gout par fonction")
     return None
 
 @app.route('/', methods=['GET', 'POST'])
@@ -64,6 +65,7 @@ def form():
 
     if request.method == 'POST':
         selected_gouts = request.form.getlist('gouts')  # Liste des goûts
+        print("je passe ici pour le gout")
         print(selected_gouts)
         selected_formes = request.form.getlist('formes')  # Liste des formes
         categorie = request.form.get('categorie')  # Catégorie
@@ -77,10 +79,14 @@ def form():
             if gout.isdigit():  # Si la valeur est un numéro, on l'ajoute directement
                 gouts_valides.add(gout)
             else:
+                print("je sui avant verification si gout existe")
                 id_gout = verifier_si_existe(gout, 'gout')
+                print("je suis après verif gout là")
                 if id_gout:
                     gouts_valides.add(str(id_gout))  # Ajouter l'ID du goût valide
+                    print("le gout est ajouter à la liste")
                 else:
+                    print("je vais faire la verif gout par api")
                     api_limiter.wait_if_needed()
                     info_gout = ia_verif_caract(gout, "gout")
                     is_french = info_gout["is_french"] == 'True'
@@ -147,6 +153,7 @@ def form():
 
             api_limiter.wait_if_needed()
             infos_product = generate_cereal_info(app_creat_prompt(caracteristique, categories[1], titre))
+            print(infos_product)
             description = infos_product["description"]
             meta_description = infos_product["meta_description"]
             meta_title = infos_product["meta_title"]
@@ -225,15 +232,13 @@ def form():
     return render_template('formulaire.html', formes=formes, gouts=gouts, erreurs=[])
 
 
-
-
 @app.route('/api_status', methods=['GET'])
 def api_status():
     with api_limiter.lock:
         # Calculer le temps restant pour la prochaine réinitialisation
         minute_reset_in = max(0, int(60 - (time.time() - api_limiter.minute_start_time)))
         day_reset_in = max(0, int(86400 - (time.time() - api_limiter.day_start_time)))
-
+        print("je suis ici")
         status = {
             "minute_count": api_limiter.minute_count,
             "day_count": api_limiter.day_count,

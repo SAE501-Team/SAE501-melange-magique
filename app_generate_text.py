@@ -14,6 +14,13 @@ def generate_cereal_info(prompt):
     :return: Un dictionnaire contenant les informations extraites ou un message d'erreur.
     """
     try:
+        # Spécifiez explicitement le chemin du fichier .env
+        dotenv_path = '/var/www/melange_magique/.env'
+        load_dotenv(dotenv_path=dotenv_path)
+
+        # Vérifier si la clé a bien été chargée
+        print(os.getenv('GOOGLE_API_KEY'))
+        print("avant d'essayer de recup la google api key")
         genai.configure(api_key=os.getenv('GOOGLE_API_KEY'))
 
         # Créer un modèle de génération de texte

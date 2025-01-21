@@ -19,16 +19,17 @@
       margin: 0;
       padding: 0;
     }
+    h1 {
+      font-size: 26px;
+      text-align: center;
+      color: #ff4081;
+      margin-top: 0px;
+      font-family: 'Adlam Display', sans-serif;
+    }
     .container {
-      width: 90%;
       margin: auto auto;
       background-color: white;
-      padding: 30px;
-    }
-    h1 {
-      text-align: center;
-      color: #000000;
-      font-family: 'Adlam Display', sans-serif;
+      padding: 0px 13px 30px 13px;
     }
     .form-group {
       display: flex;
@@ -282,6 +283,16 @@
       text-align: center;
       border-bottom: solid 3px #FFD700;
       margin: 6px 79px;
+    }
+    @media (min-width: 800px) {
+      h1 {
+        font-size: initial; /* Taille par défaut des <h1> */
+        color: #000000;
+      }
+    
+      .container {
+        padding: 30px 50px;
+      }
     }
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />

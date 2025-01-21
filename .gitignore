@@ -4,3 +4,4 @@ mistral_env/
 __pycache__/
 myenv/
 melange_magique_app.log
+*.log

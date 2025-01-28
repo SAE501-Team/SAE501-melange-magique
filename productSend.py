@@ -37,6 +37,8 @@ def call_api(endpoint, method="GET", data=None, params=None, files=None):
 # Fonction pour ajouter les attributs au produit
 def ajouter_attributs(product_id, attributs):
     try:
+        print(attributs)
+        l_attributs = []
         for nom_attribut, liste_attributs in attributs.items():
             for id_attribut in liste_attributs:
                 if id_attribut == 1:  # Taille 1 : +1€
@@ -72,7 +74,11 @@ def ajouter_attributs(product_id, attributs):
 
                 # Appeler l'API pour créer la combinaison
                 response = call_api("combinations", method="POST", data=attribut_xml)
-                verifier_reponse_api(response, f"Ajout attribut {nom_attribut} (ID {id_attribut}) pour le produit {product_id}")
+                attribut_id = ET.fromstring(response.text).find(".//combination/id").text
+                l_attributs.append(attribut_id)
+                verifier_reponse_api(response, f"Ajout attribut {nom_attribut} (ID {id_attribut}) pour le produit {product_id}, l'id de la combinaison : {attribut_id})")
+        return l_attributs[1]
+
 
     except Exception as e:
         print(f"Erreur lors de l'ajout des attributs pour le produit {product_id} : {e}")
@@ -305,13 +311,15 @@ def ajouter_produit(produit, dossier_images):
         print(f"Produit ajouté : {produit['nom']} avec ID {product_id}")
 
         # Ajout des attributs et caractéristiques
-        ajouter_attributs(product_id, produit.get("attributs", {}))
+        id_comb = ajouter_attributs(product_id, produit.get("attributs", {}))
 
         # Mise à jour du stock pour le produit
         mise_a_jour_stock(product_id)
 
         # Gestion des images
         ajouter_images(product_id, produit)#, dossier_images
+
+        return [product_id,id_comb]
 
     except Exception as e:
         print(f"Erreur inattendue lors de l'ajout du produit {produit['nom']} : {e}")

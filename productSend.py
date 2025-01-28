@@ -250,20 +250,20 @@ def ajouter_produit(produit, dossier_images):
                                 <available_for_order><![CDATA[1]]></available_for_order>
                                 <show_price><![CDATA[1]]></show_price>
                                 <meta_description>
-                                    <language id="1"><![CDATA[{produit["description"]}]]></language>
-                                    <language id="2"><![CDATA[{produit["description"]}]]></language>
+                                    <language id="1"><![CDATA[{produit["meta_description"]}]]></language>
+                                    <language id="2"><![CDATA[{produit["meta_description"]}]]></language>
                                 </meta_description>
                                 <meta_keywords>
                                     <language id="1"><![CDATA[Keywords]]></language>
                                     <language id="2"><![CDATA[Keywords]]></language>
                                 </meta_keywords>
                                 <meta_title>
-                                    <language id="1"><![CDATA[{produit["nom"]}]]></language>
-                                    <language id="2"><![CDATA[{produit["nom"]}]]></language>
+                                    <language id="1"><![CDATA[{produit["meta_title"]}]]></language>
+                                    <language id="2"><![CDATA[{produit["meta_title"]}]]></language>
                                 </meta_title>
                                 <link_rewrite>
-                                    <language id="1"><![CDATA[{produit["nom"]}]]></language>
-                                    <language id="2"><![CDATA[{produit["nom"]}]]></language>
+                                    <language id="1"><![CDATA[{produit["link_rewrite"]}]]></language>
+                                    <language id="2"><![CDATA[{produit["link_rewrite"]}]]></language>
                                 </link_rewrite>
                                 <name>
                                     <language id="1"><![CDATA[{produit["nom"]}]]></language>

@@ -29,15 +29,15 @@ def creat_prompt_img_cereals(caracteristic, categories):
     appearance_description += f"These cereals have a {tastes_str} flavor, filling every part of the space. The surface is densely packed with cereals, each shape contributing to a harmonious and full texture. "
 
     # Category-specific descriptions
-    if 4 in categories:  # Gourmand
+    if 11 in categories:  # Gourmand
         appearance_description += "The cereals have rich, indulgent textures and warm hues, like chocolate and hazelnut. "
         appearance_description += "Their shapes resemble delicate petals and playful stars, filling the space with a warm and inviting appearance."
 
-    if 5 in categories:  # Sport
+    if 12 in categories:  # Sport
         appearance_description += "The cereals have an energetic, dynamic presence, with sleek and bold shapes, filling the surface. "
         appearance_description += "The layout is vibrant and active, symbolizing power and performance."
 
-    if 10 in categories:  # Bio
+    if 13 in categories:  # Bio
         appearance_description += "The cereals exude a natural, earthy aesthetic, with soft, curved shapes covering the entire area. "
         appearance_description += "Their light beige and brown colors reflect organic ingredients, filling the space with wholesome energy."
 
@@ -69,13 +69,13 @@ def creat_prompt_img_box(caracteristique, categories, name):
     gouts_str = format_list([g for g in gouts if g])
     prompt_gen = ""
 
-    if 4 in categories:
+    if 11 in categories:
         prompt_gen = "A cereal box design which takes the whole picture with cereals in the shape of "+formes_str+" with a "+gouts_str+" flavor. The box shows '"+name+"' in bold letters, with milk splashes around the cereal. The design is colorful, modern, and nutritional info on the side. The style is bright, playful, and family-friendly."
 
-    if 5 in categories:
+    if 12 in categories:
         prompt_gen = "A cereal box design which takes the whole picture with cereals in the shape of "+formes_str+" with a "+gouts_str+" flavor. The box shows '"+name+"' in bold letters, with a dynamic background featuring motion lines and an athlete in action. The design uses bold colors, symbolizing energy. Highlights include 'Boost Your Energy' and 'High in Protein' for a sleek, sporty look."
 
-    if 10 in categories:
+    if 13 in categories:
         prompt_gen = "A cereal box design which takes the whole picture with cereals in the shape of "+formes_str+" with a "+gouts_str+" flavor. The box shows '"+name+"' in bold letters, surrounded by natural elements like wheat stalks, green leaves, and a rustic background. The design emphasizes organic and eco-friendly vibes, with earthy tones and minimalist, clean typography. It highlights '100% Organic' and 'No Artificial Additives' prominently, with a small eco-label and recycling icon on the side."
 
     return prompt_gen

@@ -9,8 +9,8 @@ from productSend import ajouter_produit
 import time
 from datetime import datetime, timedelta
 
-formes_disponibles = [8,7,20,9,29,30,31,21,10]  
-gouts_disponibles = [22,32,25,28,26,33,34,27,23,24]
+formes_disponibles = [8, 7, 11, 9, 12, 13, 14, 15, 10] 
+gouts_disponibles = [18, 19, 20, 21, 22, 23, 24, 25, 26, 27]
 
 # Limites
 QUOTA_MINUTE = 15
@@ -125,7 +125,7 @@ def generate_products(n):
                 wait_for_minute_reset()
 
             # Générer des catégories aléatoires
-            categories = [random.choice([10, 5, 4]),2,3]  # Vérifier et changer les ID si nécessaire
+            categories = [random.choice([11, 12, 13]),2,10]   # Vérifier et changer les ID si nécessaire
             attribut = {"taille": [1, 2, 3]}
             caracteristique = generer_caract(formes_disponibles, gouts_disponibles)
             

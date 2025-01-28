@@ -148,7 +148,7 @@ def form():
             )
         else:
             #récupérer toutes les informations
-            categories=[9,int(categorie),2,3]
+            categories=[14,int(categorie),2,10]
             caracteristique={"formes": list(map(int, formes_valides)), "gouts": list(map(int, gouts_valides))}
 
             api_limiter.wait_if_needed()

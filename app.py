@@ -207,7 +207,9 @@ def form():
                     print(f"Titre: {titre}")
                     print(f"Couleur: {couleur}")
                     # Si tout réussit, afficher le résultat
-                    lien = "https://www.kelloggs.fr/fr_FR/brands/rice-krispies-consumer-brand.html"
+                    id_produit = result[0]
+                    id_pMoyen = result[1]
+                    lien = "http://localhost:8080/fr/melange-magique/"+id_produit+"-"+id_pMoyen+"-"+link_rewrite+".html#/2-taille-moyen"
                     return render_template('resultat.html', titre=titre, lien=lien, gouts_valides=gouts_valides, formes_valides=formes_valides, categorie=categorie, couleur=couleur)
 
                 except Exception as e:
